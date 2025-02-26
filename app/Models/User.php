@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -70,5 +72,13 @@ class User extends Authenticatable
         if (!empty($value)) {
             $this->attributes['password'] = Hash::make($value);
         }
+    }
+    
+    // Método para generar un enlace firmado para activar la cuenta
+    public function generateActivationSignature()
+    {
+        return URL::temporarySignedRoute(
+            'activate.user', now()->addMinutes(5), ['user' => $this->id]
+        );
     }
 }

@@ -57,7 +57,7 @@
               grecaptcha.reset(optWidgetId.value);
             }
             optWidgetId.value = window.grecaptcha.render("contenedor-recaptcha", {
-              sitekey: "6LdQ7F0pAAAAAMb2vICxr89p1srjijesx1HKl73A",
+              sitekey: import.meta.env.VITE_RECAPTCHA,
               callback: (response) => {
                 props.setToken(response);
               },

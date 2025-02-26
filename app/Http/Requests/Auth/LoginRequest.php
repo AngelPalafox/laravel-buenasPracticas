@@ -27,7 +27,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string', new SecurePassword],
+            'password' => ['required', 'string'],
             'token_captcha' => ['required', 'string', new Recaptcha],
         ];
     }
@@ -39,7 +39,8 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        
+        if (! Auth::once($this->only('email', 'password'))) {
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
@@ -61,6 +62,8 @@ class LoginRequest extends FormRequest
             'password.string' => 'La contraseña debe ser un string',
             'token_captcha.required' => 'El Captcha es requerido',
             'token_captcha.string' => 'El Captcha debe ser un string',
+            'confirmed' => ' :attribute de confirmación no coincide',
+            'unique' => ' :attribute ya existe',
         ];
     }
 }

@@ -1,12 +1,11 @@
 {
     "private": true,
     "scripts": {
-        "dev": "vite",
+        "dev": "vite --port 1589",
         "build": "vite build",
         "serve": "php artisan serve",
         "migrate": "php artisan migrate --seed",
         "queue": "php artisan queue:work --queue=high,default",
-        
         "test": ""
     },
     "devDependencies": {
@@ -21,5 +20,8 @@
         "tailwindcss": "^3.2.1",
         "vite": "^4.0.0",
         "vue": "^3.2.41"
+    },
+    "dependencies": {
+        "sweetalert2": "^11.15.10"
     }
 }

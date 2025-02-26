@@ -19,10 +19,9 @@ class ReCaptcha implements InvokableRule
     {
         $response = Http::asForm()
         ->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret'   => '6LdQ7F0pAAAAAHrAkIqUnsOvJHkw3-B2FrpUFpHi',
+            'secret'   => env('APP_CAPTCHA'),
             'response' => $value,
         ])->json();
-
         if(!$response['success'])
             $fail("Verifique y vuelva a hacer el Captcha");
     }
